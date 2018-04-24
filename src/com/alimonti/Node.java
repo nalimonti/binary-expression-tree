@@ -15,16 +15,4 @@ public class Node {
         this.left = left;
         this.right = right;
     }
-
-    public String getSymbol() {
-        return this.symbol;
-    }
-
-    public Node getLeft() {
-        return this.left;
-    }
-
-    public Node getRight() {
-        return this.right;
-    }
 }
