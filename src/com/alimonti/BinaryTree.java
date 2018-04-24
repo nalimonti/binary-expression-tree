@@ -23,14 +23,97 @@ public class BinaryTree {
 
     public static void main(String[] args) throws FileNotFoundException {
 	    BinaryTree tree = new BinaryTree();
-	    tree.parseFile();
-	    tree.root = tree.addNode(tree.root, 0);
-        tree.preTraversal(tree.root, tree.preSymbols);
-        tree.postTraversal(tree.root, tree.postSymbols);
+//	    tree.parseFile();
+//	    tree.root = tree.addNode(tree.root, 0);
+//        tree.preTraversal(tree.root, tree.preSymbols);
+//        tree.postTraversal(tree.root, tree.postSymbols);
+//
+//        printPre(tree);
+//        System.out.println();
+//        printPost(tree);
 
-        printPre(tree);
-        System.out.println();
-        printPost(tree);
+//        String expression = tree.parse();
+//        System.out.println(expression);
+//        String postExpression = tree.convertToPostfix(expression);
+//        System.out.println(postExpression);
+
+        InfixParser parser = new InfixParser(tree.parse());
+    }
+
+//    private String convertToPostfix(String expression) {
+//        String result = new String("");
+//        Stack<Character> stack = new Stack<>();
+//
+//        for (int i = 0; i < expression.length(); ++i) {
+//            char c = expression.charAt(i);
+//            if (c == ' ') continue;
+//
+//            // If the scanned character is an operand, add it to output.
+//            if (Character.isLetterOrDigit(c)) {
+//                result += c;
+//                while (Character.isLetterOrDigit(expression.charAt(i++))) {
+//                    result += expression.charAt(i++);
+//                }
+//            }
+//                // If the scanned character is an '(', push it to the stack.
+//            else if (c == '(')
+//                stack.push(c);
+//
+//                //  If the scanned character is an ')', pop and output from the stack
+//                // until an '(' is encountered.
+//            else if (c == ')')
+//            {
+//                while (!stack.isEmpty() && stack.peek() != '(')
+//                    result += stack.pop();
+//
+//                if (!stack.isEmpty() && stack.peek() != '(')
+//                    return "Invalid Expression"; // invalid expression
+//                else
+//                    stack.pop();
+//            }
+//            else // an operator is encountered
+//            {
+//                while (!stack.isEmpty() && Prec(c) <= Prec(stack.peek()))
+//                    result += stack.pop();
+//                stack.push(c);
+//            }
+//        }
+//        while (!stack.isEmpty())
+//            result += stack.pop();
+//
+//        return result;
+//    }
+
+    static int Prec(char ch)
+    {
+        switch (ch)
+        {
+            case '+':
+            case '-':
+                return 1;
+
+            case '*':
+            case '/':
+                return 2;
+
+            case '^':
+                return 3;
+        }
+        return -1;
+    }
+
+    private String parse() throws FileNotFoundException {
+        File file = new File("math.txt");
+        Scanner sc = new Scanner(file);
+
+        String expression = new String("");
+
+        while (sc.hasNextLine()) {
+            expression += sc.nextLine();
+        }
+
+        sc.close();
+        return expression;
     }
 
     private static void printPre(BinaryTree tree) {
@@ -98,16 +181,16 @@ public class BinaryTree {
         }
     }
 
-    private class Node {
-        String symbol;
-        Node left;
-        Node right;
-
-        public Node(String symbol) {
-            this.symbol = symbol;
-            this.left = this.right = null;
-        }
-    }
+//    private class Node {
+//        String symbol;
+//        Node left;
+//        Node right;
+//
+//        public Node(String symbol) {
+//            this.symbol = symbol;
+//            this.left = this.right = null;
+//        }
+//    }
 
     private class Evaluator {
 
